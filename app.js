@@ -32,12 +32,14 @@ const contributionRoutes = require('./routes/contributionRoutes');
 const loanRoutes = require('./routes/loanRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const userRoutes = require('./routes/userRoutes');
-
+const adminRoutes = require('./routes/adminRoutes');
 // Use routes
 app.use('/api/contributions', contributionRoutes);
 app.use('/api/loans', loanRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/admin', adminRoutes);
+
 app.use("/",()=>console.log("Starting"))
 // Handle errors
 app.use((err, req, res, next) => {

@@ -18,12 +18,16 @@
 
 
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 
 const authMiddleware = (req, res, next) => {
+    // console.log(req.header('Authorization'))
   const token = req.header('Authorization')?.replace('Bearer ', '');
   if (!token) return res.status(401).json({ message: 'Access denied. No token provided.' });
 
   try {
+    console.log(token)
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();

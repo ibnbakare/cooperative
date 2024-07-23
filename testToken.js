@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjlmYzM0YTcxMWQwZTkxNWZhNzVlM2UiLCJpYXQiOjE3MjE3NDgxNzAsImV4cCI6MTcyMTc1MTc3MH0.0EEymWewQD_0fD60d0fGs4ubeBzXeQ-wt49xAwyc2ik';
 
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjlmZDIxMDdjYWEwZDU2ZDE0OTZkNDUiLCJpYXQiOjE3MjE3NjQ2NDAsImV4cCI6MTcyMTc2ODI0MH0.C39Y4F9i-zlDayqYeSIjK06H7sJZuLuIQeKywWu-BJE"
 try {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   console.log('Decoded:', decoded);
