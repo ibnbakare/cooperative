@@ -19,15 +19,11 @@ require('dotenv').config();
 
 
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
+const JWT_SECRET = process.env.JWT_SECRET;
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB using environment variable
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-})
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
@@ -35,12 +31,14 @@ mongoose.connect(process.env.MONGODB_URI, {
 const contributionRoutes = require('./routes/contributionRoutes');
 const loanRoutes = require('./routes/loanRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // Use routes
 app.use('/api/contributions', contributionRoutes);
 app.use('/api/loans', loanRoutes);
 app.use('/api/payments', paymentRoutes);
-
+app.use('/api/users', userRoutes);
+app.use("/",()=>console.log("Starting"))
 // Handle errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
