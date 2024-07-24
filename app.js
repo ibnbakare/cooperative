@@ -40,6 +40,26 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 
+
+
+
+// 404 Middleware
+app.use((req, res, next) => {
+    res.status(404).json({
+      message: 'Route not found',
+      error: 'The requested route does not exist'
+    });
+  });
+  
+  // Global Error Handler Middleware
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+      message: 'Internal Server Error',
+      error: err.message
+    });
+  });
+
 app.use("/",()=>console.log("Starting"))
 // Handle errors
 app.use((err, req, res, next) => {

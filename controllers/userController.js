@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const Contribution = require('../models/contribution');
+
 
 // Register a new user
 exports.registerUser = async (req, res) => {
@@ -60,3 +62,36 @@ exports.getProfile = async (req, res) => {
       res.status(500).json({ message: 'Error fetching user profile', error: error.message });
     }
   };
+
+
+
+exports.makeAdmin = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    user.role = 'admin';
+    await user.save();
+
+    res.status(200).json({ message: 'User role updated to admin', user });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating user role', error: error.message });
+  }
+};
+
+
+exports.getUserContributionsSummary = async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const contributions = await Contribution.find({ userId });
+  
+      const totalContributed = contributions.reduce((total, contribution) => total + contribution.amount, 0);
+  
+      res.status(200).json({ userId, totalContributed, contributions });
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching contributions summary', error: error.message });
+    }
+  };
+  
